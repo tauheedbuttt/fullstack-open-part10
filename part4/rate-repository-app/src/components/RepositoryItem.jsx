@@ -1,7 +1,8 @@
-import { Image, StyleSheet, View } from "react-native";
-import Text from "./Text";
+import { Image, Pressable, StyleSheet, View, Linking } from "react-native";
+import { useNavigate } from "react-router-native";
 import theme from "../theme";
 import { formatNumber } from "../utils/utils";
+import Text from "./Text";
 
 const styles = StyleSheet.create({
   container: {
@@ -40,9 +41,19 @@ const styles = StyleSheet.create({
     gap: 5,
     alignItems: "center",
   },
+  githubContainer: {
+    marginTop: 15,
+    padding: 10,
+    borderRadius: 4,
+    backgroundColor: theme.colors.primary,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  githubButtonText: { color: "white" },
 });
 
-const RepositoryItem = ({ item }) => {
+const RepositoryItem = ({ item, isDetails }) => {
+  const navigate = useNavigate();
   const stats = [
     { label: "Stars", value: item.stargazersCount },
     { label: "Forks", value: item.forksCount },
@@ -53,7 +64,12 @@ const RepositoryItem = ({ item }) => {
     value: formatNumber(item.value),
   }));
   return (
-    <View testID="repository-item" style={styles.container}>
+    <Pressable
+      disabled={isDetails}
+      onPress={() => (isDetails ? undefined : navigate(`/${item.id}`))}
+      testID="repository-item"
+      style={styles.container}
+    >
       {/* Header */}
       <View style={styles.header}>
         {/* Image */}
@@ -87,7 +103,16 @@ const RepositoryItem = ({ item }) => {
           </View>
         ))}
       </View>
-    </View>
+      {/* Github Button */}
+      {isDetails && (
+        <Pressable
+          onPress={() => Linking.openURL(item.url)}
+          style={styles.githubContainer}
+        >
+          <Text style={styles.githubButtonText}>Open in GitHub</Text>
+        </Pressable>
+      )}
+    </Pressable>
   );
 };
 
