@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import Text from "./Text";
 import theme from "../theme";
 import { loginValidationSchema } from "../validations/auth";
+import useSignIn from "../hooks/useSignIn";
 
 const styles = StyleSheet.create({
   container: {
@@ -38,8 +39,9 @@ const styles = StyleSheet.create({
 });
 
 const SignIn = () => {
+  const { signIn } = useSignIn();
   const onSubmit = (values) => {
-    console.log(values);
+    signIn({ variables: { credentials: values } });
   };
   const { values, handleChange, handleSubmit, touched, errors } = useFormik({
     initialValues: {
