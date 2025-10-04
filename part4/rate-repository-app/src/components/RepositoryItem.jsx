@@ -53,17 +53,21 @@ const RepositoryItem = ({ item }) => {
     value: formatNumber(item.value),
   }));
   return (
-    <View style={styles.container}>
+    <View testID="repository-item" style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
         {/* Image */}
         <Image source={{ uri: item.ownerAvatarUrl }} style={styles.image} />
         {/* Name, description, language */}
         <View style={styles.headerDescription}>
-          <Text fontWeight={"bold"}>{item.fullName}</Text>
-          <Text>{item.description}</Text>
+          <Text testID="repository-item-name" fontWeight={"bold"}>
+            {item.fullName}
+          </Text>
+          <Text testID="repository-item-description">{item.description}</Text>
           <View style={styles.languageContainer}>
-            <Text style={{ color: "white" }}>{item.language}</Text>
+            <Text style={{ color: "white" }} testID="repository-item-language">
+              {item.language}
+            </Text>
           </View>
         </View>
       </View>
@@ -71,7 +75,14 @@ const RepositoryItem = ({ item }) => {
       <View style={styles.statsContainer}>
         {stats.map((stat) => (
           <View key={stat.label} style={styles.statItem}>
-            <Text fontWeight="bold">{stat.value}</Text>
+            <Text
+              testID={`repository-item-stat-${stat.label
+                .toLocaleLowerCase()
+                .replace(/ /g, "-")}`}
+              fontWeight="bold"
+            >
+              {stat.value}
+            </Text>
             <Text color="textSecondary">{stat.label}</Text>
           </View>
         ))}

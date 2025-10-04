@@ -38,11 +38,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const SignIn = () => {
-  const { signIn } = useSignIn();
-  const onSubmit = (values) => {
-    signIn({ variables: { credentials: values } });
-  };
+export const SignInForm = ({ onSubmit }) => {
   const { values, handleChange, handleSubmit, touched, errors } = useFormik({
     initialValues: {
       username: "",
@@ -80,11 +76,24 @@ const SignIn = () => {
       {touched.password && errors.password && (
         <Text style={styles.errorText}>{errors.password}</Text>
       )}
-      <Pressable onPress={handleSubmit} style={styles.button}>
+      <Pressable
+        testID="sign-in-button"
+        onPress={handleSubmit}
+        style={styles.button}
+      >
         <Text style={styles.buttonText}>Sign In</Text>
       </Pressable>
     </View>
   );
+};
+
+const SignIn = () => {
+  const { signIn } = useSignIn();
+  const onSubmit = (values) => {
+    signIn({ variables: { credentials: values } });
+  };
+
+  return <SignInForm onSubmit={onSubmit} />;
 };
 
 export default SignIn;
