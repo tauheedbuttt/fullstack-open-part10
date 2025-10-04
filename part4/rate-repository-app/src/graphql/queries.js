@@ -46,15 +46,21 @@ export const GET_REPOSITORIES = gql`
 `;
 
 export const GET_REPOSITORY = gql`
-  query Repository($id: ID!) {
+  query Repository($id: ID!, $after: String) {
     repository(id: $id) {
       ...RepositoryFields
       url
-      reviews {
+      reviews(after: $after, first: 4) {
         edges {
           node {
             ...ReviewFields
           }
+          cursor
+        }
+        pageInfo {
+          endCursor
+          startCursor
+          hasNextPage
         }
       }
     }

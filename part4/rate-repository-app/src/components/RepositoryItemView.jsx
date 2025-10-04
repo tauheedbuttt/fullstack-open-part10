@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 
 const RepositoryItemView = () => {
   const id = useParams().id;
-  const { repository, loading } = useRepository(id);
+  const { repository, loading, fetchMore } = useRepository(id);
 
   if (loading) return <Text>Loading...</Text>;
 
@@ -37,6 +37,9 @@ const RepositoryItemView = () => {
       )}
       ItemSeparatorComponent={ItemSeparator}
       contentContainerStyle={styles.container}
+      onEndReached={() => {
+        fetchMore();
+      }}
     />
   );
 };
