@@ -1,13 +1,21 @@
 import { gql } from "@apollo/client";
-import { REPOSITORY_FIELDS } from "./fragments";
+import { REPOSITORY_FIELDS, REVIEW_FIELDS } from "./fragments";
 
 export const GET_ME = gql`
   query {
     me {
       id
       username
+      reviews {
+        edges {
+          node {
+            ...ReviewFields
+          }
+        }
+      }
     }
   }
+  ${REVIEW_FIELDS}
 `;
 
 export const GET_REPOSITORIES = gql`
@@ -45,18 +53,12 @@ export const GET_REPOSITORY = gql`
       reviews {
         edges {
           node {
-            id
-            text
-            rating
-            createdAt
-            user {
-              id
-              username
-            }
+            ...ReviewFields
           }
         }
       }
     }
   }
   ${REPOSITORY_FIELDS}
+  ${REVIEW_FIELDS}
 `;

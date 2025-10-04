@@ -53,6 +53,15 @@ const AppBar = () => {
         </Link>
         {me ? (
           <>
+            <Link to="/review/mine" style={styles.pressable}>
+              <Text
+                fontSize={theme.fontSizes.subheading}
+                style={styles.text}
+                fontWeight="bold"
+              >
+                My Reviews
+              </Text>
+            </Link>
             <Link to="/review/create" style={styles.pressable}>
               <Text
                 fontSize={theme.fontSizes.subheading}
