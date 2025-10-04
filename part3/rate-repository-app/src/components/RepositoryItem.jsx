@@ -1,6 +1,7 @@
 import { Image, StyleSheet, View } from "react-native";
 import Text from "./Text";
 import theme from "../theme";
+import { formatNumber } from "../utils/utils";
 
 const styles = StyleSheet.create({
   container: {
@@ -47,7 +48,10 @@ const RepositoryItem = ({ item }) => {
     { label: "Forks", value: item.forksCount },
     { label: "Reviews", value: item.reviewCount },
     { label: "Rating", value: item.ratingAverage },
-  ];
+  ].map((item) => ({
+    ...item,
+    value: formatNumber(item.value),
+  }));
   return (
     <View style={styles.container}>
       {/* Header */}
