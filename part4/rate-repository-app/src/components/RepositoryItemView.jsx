@@ -21,7 +21,7 @@ const RepositoryItemView = () => {
 
   if (loading) return <Text>Loading...</Text>;
 
-  const reviews = repository.reviews
+  const reviews = repository?.reviews
     ? repository.reviews.edges.map((edge) => edge.node)
     : [];
 

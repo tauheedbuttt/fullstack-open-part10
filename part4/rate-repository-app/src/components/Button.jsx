@@ -14,11 +14,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
+  danger: {
+    backgroundColor: theme.colors.error,
+  },
 });
 
-const Button = ({ onPress, text, testID }) => {
+const Button = ({ onPress, text, testID, style, variant }) => {
   return (
-    <TouchableOpacity testID={testID} onPress={onPress} style={styles.button}>
+    <TouchableOpacity
+      testID={testID}
+      onPress={onPress}
+      style={[styles.button, style, variant === "danger" && styles.danger]}
+    >
       <Text style={styles.buttonText}>{text}</Text>
     </TouchableOpacity>
   );
