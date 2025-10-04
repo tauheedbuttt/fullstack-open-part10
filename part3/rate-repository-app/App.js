@@ -4,7 +4,6 @@ import { NativeRouter } from "react-router-native";
 import Main from "./src/components/Main";
 import createApolloClient from "./src/utils/apolloClient";
 
-console.log("apolloClient");
 const apolloClient = createApolloClient();
 
 const App = () => {
