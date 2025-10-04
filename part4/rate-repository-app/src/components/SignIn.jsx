@@ -1,9 +1,9 @@
-import { Pressable, StyleSheet, TextInput, View } from "react-native";
 import { useFormik } from "formik";
-import Text from "./Text";
-import theme from "../theme";
-import { loginValidationSchema } from "../validations/auth";
+import { StyleSheet, View } from "react-native";
 import useSignIn from "../hooks/useSignIn";
+import { loginValidationSchema } from "../validations/auth";
+import Button from "./Button";
+import TextInput from "./TextInput";
 
 const styles = StyleSheet.create({
   container: {
@@ -11,30 +11,6 @@ const styles = StyleSheet.create({
     padding: 15,
     flexDirection: "column",
     gap: 10,
-  },
-  button: {
-    backgroundColor: theme.colors.primary,
-    padding: 15,
-    borderRadius: 5,
-    alignItems: "center",
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-  input: {
-    borderColor: theme.colors.separator,
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
-  },
-  errorText: {
-    color: theme.colors.error,
-    fontSize: 12,
-  },
-  errorBorder: {
-    borderColor: theme.colors.error,
   },
 });
 
@@ -54,35 +30,20 @@ export const SignInForm = ({ onSubmit }) => {
         value={values.username}
         onChangeText={handleChange("username")}
         placeholder="Username"
-        style={[
-          styles.input,
-          touched.username && errors.username && styles.errorBorder,
-        ]}
+        touched={touched.username}
+        error={errors.username}
       />
 
-      {touched.username && errors.username && (
-        <Text style={styles.errorText}>{errors.username}</Text>
-      )}
       <TextInput
         value={values.password}
         onChangeText={handleChange("password")}
         placeholder="Password"
-        style={[
-          styles.input,
-          touched.username && errors.username && styles.errorBorder,
-        ]}
         secureTextEntry
+        touched={touched.password}
+        error={errors.password}
       />
-      {touched.password && errors.password && (
-        <Text style={styles.errorText}>{errors.password}</Text>
-      )}
-      <Pressable
-        testID="sign-in-button"
-        onPress={handleSubmit}
-        style={styles.button}
-      >
-        <Text style={styles.buttonText}>Sign In</Text>
-      </Pressable>
+
+      <Button text="Sign In" onPress={handleSubmit} testID="sign-in-button" />
     </View>
   );
 };

@@ -52,15 +52,26 @@ const AppBar = () => {
           </Text>
         </Link>
         {me ? (
-          <Pressable onPress={signOut} style={styles.pressable}>
-            <Text
-              fontSize={theme.fontSizes.subheading}
-              style={styles.text}
-              fontWeight="bold"
-            >
-              Sign Out ({me.username})
-            </Text>
-          </Pressable>
+          <>
+            <Link to="/review/create" style={styles.pressable}>
+              <Text
+                fontSize={theme.fontSizes.subheading}
+                style={styles.text}
+                fontWeight="bold"
+              >
+                Create Review
+              </Text>
+            </Link>
+            <Pressable onPress={signOut} style={styles.pressable}>
+              <Text
+                fontSize={theme.fontSizes.subheading}
+                style={styles.text}
+                fontWeight="bold"
+              >
+                Sign Out ({me.username})
+              </Text>
+            </Pressable>
+          </>
         ) : (
           <Link to="/sign-in" style={styles.pressable}>
             <Text
